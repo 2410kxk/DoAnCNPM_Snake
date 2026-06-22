@@ -1,17 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DrugContraindicationAPI.Models
+namespace DrugContraindicationAPI.DTOs
 {
-    public class Disease
+    public class DiseaseDTO
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
-        [MaxLength(200)]
         public string DiseaseName { get; set; } = string.Empty;
-
-        [MaxLength(500)]
+    
+        [MaxLength(1000)]
         public string Description { get; set; } = string.Empty;
     }
 }

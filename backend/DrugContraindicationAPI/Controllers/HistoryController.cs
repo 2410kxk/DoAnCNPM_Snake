@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using DrugContraindicationAPI.Data;
 using DrugContraindicationAPI.Models;
+using DrugContraindicationAPI.DTOs;
 
 namespace DrugContraindicationAPI.Controllers
 {
@@ -16,18 +18,73 @@ namespace DrugContraindicationAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_context.Histories.ToList());
+            var histories = await _context.Histories
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+
+            return Ok(histories);
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var histories = await _context.Histories
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+
+            return Ok(histories);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var history = await _context.Histories.FindAsync(id);
+
+            if (history == null)
+                return NotFound(new { message = "Không tìm thấy lịch sử tra cứu." });
+
+            return Ok(history);
         }
 
         [HttpPost]
-        public IActionResult Save(History history)
+        public async Task<IActionResult> Save(HistoryDTO dto)
         {
-            _context.Histories.Add(history);
-            _context.SaveChanges();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return Ok(history);
+            var history = new History
+            {
+                UserId = dto.UserId,
+                DrugList = dto.DrugList.Trim(),
+                Result = dto.Result.Trim(),
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Histories.Add(history);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Lưu lịch sử tra cứu thành công.",
+                history
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var history = await _context.Histories.FindAsync(id);
+
+            if (history == null)
+                return NotFound(new { message = "Không tìm thấy lịch sử cần xóa." });
+
+            _context.Histories.Remove(history);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Xóa lịch sử thành công." });
         }
     }
 }
