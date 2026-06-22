@@ -1,23 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DrugContraindicationAPI.Models
+namespace DrugContraindicationAPI.DTOs
 {
-    public class Drug
+    public class DrugDTO
     {
-        [Key]
-        public int DrugId { get; set; }
-
         [Required]
-        [MaxLength(200)]
         public string DrugName { get; set; } = string.Empty;
 
-        [MaxLength(500)]
         public string Description { get; set; } = string.Empty;
 
-        [MaxLength(200)]
         public string Manufacturer { get; set; } = string.Empty;
 
-        [MaxLength(200)]
         public string ActiveIngredient { get; set; } = string.Empty;
     }
 }

@@ -1,15 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace DrugContraindicationAPI.Models
 {
     public class Interaction
     {
+        [Key]
         public int Id { get; set; }
 
-        public string DrugA { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string DrugA { get; set; } = string.Empty;
 
-        public string DrugB { get; set; }
+        [Required]
+        [MaxLength(200)]
+        public string DrugB { get; set; } = string.Empty;
 
-        public string Level { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Level { get; set; } = "Medium";
 
-        public string Description { get; set; }
+        [Required]
+        [MaxLength(1000)]
+        public string Description { get; set; } = string.Empty;
     }
 }
