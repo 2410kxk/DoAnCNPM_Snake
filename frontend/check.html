@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra thuốc</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo">Drug Safe</div>
+        <nav class="nav">
+            <a href="index.html">Trang chủ</a>
+            <a href="check.html">Kiểm tra</a>
+            <a href="history.html">Lịch sử</a>
+            <a href="login.html">Đăng nhập</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Kiểm tra chống chỉ định thuốc</h2>
+
+        <div id="checkMessage" class="message"></div>
+
+        <div class="check-layout">
+            <div class="card">
+                <h3>Nhập thông tin thuốc</h3>
+
+                <div class="form-group">
+                    <label>Tên thuốc</label>
+                    <input type="text" id="drugInput" class="form-control" placeholder="Ví dụ: Aspirin">
+                </div>
+
+                <button id="addDrugBtn" class="btn btn-primary">Thêm thuốc</button>
+
+                <div class="drug-list" id="drugList"></div>
+            </div>
+
+            <div class="card">
+                <h3>Thông tin bệnh nền</h3>
+
+                <div class="form-group">
+                    <label>Chọn bệnh nền</label>
+                    <select id="diseaseSelect" class="form-control">
+                        <option value="">-- Chọn bệnh nền --</option>
+                    </select>
+                </div>
+
+                <button id="checkContraBtn" class="btn btn-danger" style="margin-bottom:10px;">
+                    Kiểm tra chống chỉ định
+                </button>
+
+                <button id="checkInteractionBtn" class="btn btn-warning">
+                    Kiểm tra tương tác thuốc
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Drug Safe - Đồ án Công nghệ phần mềm</p>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/check.js"></script>
+
+</body>
+</html>
